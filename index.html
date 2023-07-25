@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lottie Emoji Replacer</title>
+    <!-- Include Lottie library -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.9/lottie.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <h1>Hello! Here are some emojis:</h1>
+    <div class="emoji-container" id="emojiContainer">
+      <!-- Add emojis inside the div -->
+      <span>😃 😍 🥳</span>
+      <p>😃 😍 🥳 😃 😍 🥳 😃 😍</p>
+      <p>
+        😁 😁 😁 😁 😁 😁😁 😁 😁 😁 😁 😁 😁 😁 😁 😁 😁 😁 😁 😁 😁 😁 😁 😁
+      </p>
+      😃 😍 🥳 😃 😍 🥳 😃 😍 🥳
+    </div>
+
+    <h1>link <a href="./page.html">view more</a></h1>
+
+    <!-- Lottie animation data for emojis -->
+    <script>
+      // Replace these URLs with the actual Lottie animation data for your emojis
+      const emojiData = {
+        "😃": "./lottie/smile.json",
+        "😍": "./lottie/heart-eye.json",
+        "🥳": "./lottie/party-face.json",
+        "😁": "./lottie/grinning.json",
+        // Add more emojis and their corresponding Lottie animation data here
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const emojiContainer = document.getElementById("emojiContainer");
+
+        // Function to process a single node
+        function processNode(node) {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const emojis =
+              node.nodeValue.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]|\S/g) || [];
+            const parentNode = node.parentNode;
+
+            emojis.forEach((emoji) => {
+              if (emojiData[emoji]) {
+                const lottieContainer = document.createElement("div");
+                lottieContainer.style.display = "inline-block";
+                lottieContainer.style.width = "50px"; // Adjust the size as needed
+                lottieContainer.style.height = "50px"; // Adjust the size as needed
+                parentNode.insertBefore(lottieContainer, node);
+
+                const animation = bodymovin.loadAnimation({
+                  container: lottieContainer,
+                  renderer: "svg", // You can choose 'canvas' for better performance
+                  loop: true,
+                  autoplay: true,
+                  path: emojiData[emoji],
+                });
+              } else {
+                // If the emoji doesn't have a Lottie animation, keep it as static text
+                parentNode.insertBefore(
+                  document.createTextNode(emoji + " "),
+                  node
+                );
+              }
+            });
+
+            parentNode.removeChild(node);
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            // If it's an element node, continue processing its child nodes
+            const childNodes = [...node.childNodes];
+            for (const childNode of childNodes) {
+              processNode(childNode);
+            }
+          }
+        }
+
+        // Process the emojiContainer
+        processNode(emojiContainer);
+      });
+    </script>
+  </body>
+</html>

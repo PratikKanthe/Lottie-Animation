@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lottie Emoji Replacer</title>
+    <!-- Include Lottie library -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.9/lottie.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <a href="./lottie.html"></a>
+    <h1>Hello! Here are some emojis:</h1>
+    <div class="emoji-container">
+      <!-- Replace these static emojis with Lottie animations -->
+      <span class="emoji">😃</span>
+      <span class="emoji">😍</span>
+      <span class="emoji">🥳</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😃</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+      <span class="emoji">😁</span>
+    </div>
+    <h2>heading 2</h2>
+    <a href="./index.html">home page</a>
+
+    <!-- Lottie animation data for emojis -->
+    <script>
+      // Replace these URLs with the actual Lottie animation data for your emojis
+      const emojiData = {
+        "😃": "./lottie/smile.json",
+        "😍": "./lottie/heart-eye.json",
+        "🥳": "./lottie/party-face.json",
+        "😁": "./lottie/grinning.json",
+        // Add more emojis and their corresponding Lottie animation data here
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const emojiElements = document.querySelectorAll(".emoji");
+
+        emojiElements.forEach((emojiElement) => {
+          const emojiUnicode = emojiElement.innerText;
+          if (emojiData[emojiUnicode]) {
+            const lottieContainer = document.createElement("div");
+            lottieContainer.style.display = "inline-block";
+            lottieContainer.style.width = "50px"; // Adjust the size as needed
+            lottieContainer.style.height = "50px"; // Adjust the size as needed
+            emojiElement.parentNode.replaceChild(lottieContainer, emojiElement);
+
+            const animation = bodymovin.loadAnimation({
+              container: lottieContainer,
+              renderer: "svg", // You can choose 'canvas' for better performance
+              loop: true,
+              autoplay: true,
+              path: emojiData[emojiUnicode],
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
